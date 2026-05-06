@@ -19,15 +19,15 @@ app.use(cors(corsOptions));
 //middleware for handling json data
 app.use(express.json());
 
-app.use('/', express.static(path.join(__dirname, '/views')));
+app.use('/', express.static(path.join(__dirname, '/public')));
 
 //use routes
-app.use('/states', './routes/statesRouter'); //
+app.use('/states', statesRouter);
 
 //404 catch-all
 app.all('/*splat', (req, res) => {
   if (req.accepts('html')) {
-    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+    res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
   } else if (req.accepts('json')) {
     res.status(404).json({ error: '404 Not Found' });
   } else {
