@@ -108,7 +108,7 @@ const updateFact = async (req, res) => {
     const {index, fact} = req.body;
     const code = req.params.state.toUpperCase();
     
-    const state = statesData.find(s => code === s.state);
+    const state = statesData.find(s => code === s.code);
 
     if (!state) {
         return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
