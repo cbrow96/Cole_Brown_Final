@@ -8,7 +8,7 @@ const getAllStates = async (req, res) => {
     const statesMap = new Map(dbStates.map(s => [s.stateCode, s.funfacts]));
 
     //combine mongodb with any additional data from json
-    const states = statesData.map(state =>{
+    let states = statesData.map(state =>{
         const funfacts = statesMap.get(state.code);
         return funfacts ? {...state, funfacts} : state;
     } 
@@ -16,9 +16,9 @@ const getAllStates = async (req, res) => {
 
     if (!states) return res.status(204).json({'message': 'No States Found'});
 
-    if (req.query.contig == 'true'){
+    if (req.query.contig === 'true'){
     states = states.filter(state => state.code !== 'AK' && state.code !== 'HI');
-    }else if (req.query.contig == 'false'){
+    }else if (req.query.contig === 'false'){
         states = states.filter(state => state.code === 'AK' || state.code === 'HI');
     }
 
