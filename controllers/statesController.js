@@ -50,7 +50,7 @@ const getRandomFact = async (req, res) => {
     res.json({funfact: fact});
 };
 
-const getCapitol = async (req, res) => {
+const getCapital = async (req, res) => {
     const state = statesData.find(s => req.params.state.toUpperCase() === s.code);
     if (!state) return res.status(404).json({message: 'Invalid state abbreviation parameter'});
     res.json({state: state.state, capitol: state.capitol_city});
@@ -149,7 +149,7 @@ module.exports = {
     getAllStates,
     getState,
     getRandomFact,
-    getCapitol,
+    getCapital,
     getNickName,
     getAdmission,
     getPopulation,
