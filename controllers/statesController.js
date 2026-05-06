@@ -128,11 +128,13 @@ const updateFact = async (req, res) => {
         return res.status(404).json({message: `No Fun Facts found for ${s => code === s.code}`});
     }
 
-    if ((index - 1) < 0 || (index - 1) >= statedb.funfacts.length) {
+    const finalIndex = (index - 1);
+
+    if (finalIndex < 0 || finalIndex >= statedb.funfacts.length) {
         return res.status(404).json({ message: `No Fun Fact found at that index for ${s => code === s.code}` });
     }
 
-    statedb.funfacts[index - 1] = fact;
+    statedb.funfacts[finalIndex] = fact;
     await statedb.save();
     res.json(statedb);
 };
