@@ -109,7 +109,6 @@ const updateFact = async (req, res) => {
     const code = req.params.state.toUpperCase();
     
     const state = statesData.find(s => code === s.code);
-    console.log(funfact);
 
     if (!state) {
         return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
@@ -126,13 +125,13 @@ const updateFact = async (req, res) => {
     const statedb = await State.findOne({stateCode: code});
 
     if(!statedb || !statedb.funfacts?.length) {
-        return res.status(404).json({message: `No Fun Facts found for ${s => code === s.code}`});
+        return res.status(404).json({message: `No Fun Facts found for ${state.state}`});
     }
 
     const finalIndex = (index - 1);
 
     if (finalIndex < 0 || finalIndex >= statedb.funfacts.length) {
-        return res.status(404).json({ message: `No Fun Fact found at that index for ${s => code === s.code}` });
+        return res.status(404).json({ message: `No Fun Fact found at that index for ${State.state}` });
     }
 
     statedb.funfacts[finalIndex] = funfact;
