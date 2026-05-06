@@ -10,7 +10,6 @@ const connectDB = require('./config/dbConn');
 const statesRouter = require('./routes/states');
 const PORT = process.env.PORT || 3500;
 
-console.log('starting...');
 //Conect to mongodb
 connectDB();
 
@@ -23,7 +22,7 @@ app.use(express.json());
 app.use('/', express.static(path.join(__dirname, '/views')));
 
 //use routes
-app.use('/states', statesRouter);
+app.use('/states', './routes/statesRouter'); //
 
 //404 catch-all
 app.all('/*splat', (req, res) => {
