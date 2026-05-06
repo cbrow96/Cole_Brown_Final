@@ -28,9 +28,7 @@ const getAllStates = async (req, res) => {
 //get a single combined state data
 const getState = async (req, res) => {
     //search json for statecode
-    console.log(`line 32. your state is: ${req.params.state.toUpperCase()}`);
     const state =  statesData.find(s => req.params.state.toUpperCase() === s.code);
-    console.log(`line 32. your state is: ${state}`);
     if (!state) return res.status(404).json({message: 'Invalid state abbreviation parameter'});
 
     //search mongo for state code
@@ -48,14 +46,12 @@ const getRandomFact = async (req, res) => {
 
     //search mongo for state code
     const statesdb = await State.findOne({stateCode: req.params.state.toUpperCase()});
-    //return combined data if exists in both mongo and json, else just return json data
-    const statesRes = statesdb ? { ...state, funfacts: statesdb.funfacts } : state;
     //check if funfacts exist
-    if (!statesRes.funfacts?.length) {
-    return res.status(404).json({ message: `No Fun Facts found for ${statesRes.state}` });
+    if (!statesdb.funfacts?.length) {
+    return res.status(404).json({ message: `No Fun Facts found for ${state.state}` });
     }
 
-    const fact = statesRes.funfacts[Math.floor(Math.random() * state.funfacts.length)];
+    const fact = statesdb.funfacts[Math.floor(Math.random() * statesdb.funfacts.length)];
 
     res.json({funfact: fact});
 };
