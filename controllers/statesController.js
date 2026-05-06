@@ -106,23 +106,24 @@ const createFact = async (req, res) => {
 
 const updateFact = async (req, res) => {
     const {index, fact} = req.body;
-    const statedb = await State.findOne(req.params.state.toUpperCase());
-    const state = statesData.find(s => req.params.state.toUpperCase() === s.code);
+    const code = req.params.state.toUpperCase();
+    const statedb = await State.findOne({stateCode: code});
+    const state = statesData.find(s => code === s.code);
 
     if(!index){
         return res.status(400).json({message: 'State fun fact index value required'});
     }
 
-    if(!fact || fact !== 'string'){
+    if(!fact || typeof fact !== 'string'){
         return res.status(400).json({message: 'State fun fact value required'});
     }
 
-    if(!statedb || !statedb.funfact?.length) {
-        return res.status(404).json({message: `No Fun Facts found for ${s => req.params.state.toUpperCase() === s.code}`});
+    if(!statedb || !statedb.funfacts?.length) {
+        return res.status(404).json({message: `No Fun Facts found for ${s => code === s.code}`});
     }
 
     if ((index - 1) < 0 || (index - 1) >= statedb.funfacts.length) {
-        return res.status(404).json({ message: `No Fun Fact found at that index for ${s => req.params.state.toUpperCase() === s.code}` });
+        return res.status(404).json({ message: `No Fun Fact found at that index for ${s => code === s.code}` });
     }
 
     statedb.funfacts[index - 1] = fact;
