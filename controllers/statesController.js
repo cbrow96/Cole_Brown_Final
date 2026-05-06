@@ -108,7 +108,7 @@ const updateFact = async (req, res) => {
     const {index, fact} = req.body;
     const code = req.params.state.toUpperCase();
     const statedb = await State.findOne({stateCode: code});
-    const state = statesData.find(s => code === s.code);
+    const state = statesData.find(s => code === s.state);
 
     if(!index){
         return res.status(400).json({message: 'State fun fact index value required'});
