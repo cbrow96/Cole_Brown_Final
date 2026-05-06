@@ -10,6 +10,7 @@ const connectDB = require('./config/dbConn');
 const statesRouter = require('./routes/states');
 const PORT = process.env.PORT || 3500;
 
+console.log('starting...');
 //Conect to mongodb
 connectDB();
 
