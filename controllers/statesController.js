@@ -28,6 +28,7 @@ const getAllStates = async (req, res) => {
 //get a single combined state data
 const getState = async (req, res) => {
     //search json for statecode
+    console.log(`line 32. your state is: ${req.params.state.toUpperCase()}`);
     const state =  statesData.find(s => req.params.state.toUpperCase() === s.code);
     console.log(`line 32. your state is: ${state}`);
     if (!state) return res.status(404).json({message: 'Invalid state abbreviation parameter'});
