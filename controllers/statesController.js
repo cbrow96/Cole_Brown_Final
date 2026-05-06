@@ -13,7 +13,15 @@ const getAllStates = async (req, res) => {
         return funfacts ? {...state, funfacts} : state;
     } 
     );
+
     if (!states) return res.status(204).json({'message': 'No States Found'});
+
+    if (req.query.contig == 'true'){
+    states = states.filter(state => state.code !== 'AK' && state.code !== 'HI');
+    }else if (req.query.contig == 'false'){
+        states = states.filter(state => state.code === 'AK' || state.code === 'HI');
+    }
+
     res.json(states);
 };
 
