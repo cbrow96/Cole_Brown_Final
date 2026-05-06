@@ -149,7 +149,7 @@ const deleteFact = async (req, res) => {
         return res.status(400).json({message: 'State fun fact index value required'});
     }
 
-    if(!statedb || !statedb.funfact?.length) {
+    if(!statedb || !statedb.funfacts?.length) {
         return res.status(404).json({message: `No Fun Facts found for ${state.state}`});
     }
 
