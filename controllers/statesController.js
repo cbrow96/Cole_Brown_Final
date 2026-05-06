@@ -46,9 +46,9 @@ const getRandomFact = async (req, res) => {
     if (!state) return res.status(404).json({message: 'Invalid state abbreviation parameter'});
 
     //search mongo for state code
-    const statesdb = await State.findOne({code});
+    const statesdb = await State.findOne({stateCode: code});
     //check if funfacts exist
-    if (!statesdb.funfacts?.length) {
+    if (!statesdb || !statesdb.funfacts?.length) {
     return res.status(404).json({ message: `No Fun Facts found for ${state.state}` });
     }
 
