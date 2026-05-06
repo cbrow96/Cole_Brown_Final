@@ -82,8 +82,8 @@ const getAdmission = async (req, res) => {
 };
 
 const createFact = async (req, res) => {
-    const stateCode = req.params.state.toUpperCase();
-    const state = await State.findOne(stateCode);
+    const code = req.params.state.toUpperCase();
+    let state = await State.findOne({stateCode: code});
     const fact = req.body.funfacts;
 
     if(!fact){
@@ -99,8 +99,8 @@ const createFact = async (req, res) => {
         await state.save();
         res.json(state);
     }else{
-        dbState = await State.create({ stateCode, funfacts });
-        return res.status(201).json(dbState);
+        state = await State.create({ stateCode: code, funfacts: fact });
+        return res.status(201).json(state);
     }
 };
 
