@@ -10,4 +10,4 @@ const statesSchema = new Schema({
     funfacts: [String]
 });
 
-module.exports('State', statesSchema);
+module.exports = mongoose.model('State', stateSchema);
