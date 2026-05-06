@@ -82,7 +82,8 @@ const getAdmission = async (req, res) => {
 };
 
 const createFact = async (req, res) => {
-    const state = await State.findOne(req.params.state.toUpperCase());
+    const stateCode = req.params.state.toUpperCase();
+    const state = await State.findOne(stateCode);
     const fact = req.body.funfacts;
 
     if(!fact){
