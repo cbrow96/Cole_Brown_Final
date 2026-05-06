@@ -5,7 +5,7 @@ const statesController =  require('../controllers/statesController');
 const verifyCode = require('../middleware/verifyStates');
 
 // route /states/ to all states data
-router.get('/', controller.getAllStates);
+router.get('/', controllers.getAllStates);
 
 // route to each specific get enpoint and use verifyStates middleware for state code checking
 router.get('/:state', verifyCode, statesController.getState);
