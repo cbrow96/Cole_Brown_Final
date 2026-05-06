@@ -159,7 +159,7 @@ const deleteFact = async (req, res) => {
         return res.status(404).json({ message: `No Fun Fact found at that index for ${state.state}` });
     }
 
-    statedb.funfacts.splicefinalIndex, 1);
+    statedb.funfacts.splice(finalIndex, 1);
     await statedb.save();
     res.json(statedb);
 };
