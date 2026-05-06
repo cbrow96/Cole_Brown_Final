@@ -107,8 +107,12 @@ const createFact = async (req, res) => {
 const updateFact = async (req, res) => {
     const {index, fact} = req.body;
     const code = req.params.state.toUpperCase();
-    const statedb = await State.findOne({stateCode: code});
+    
     const state = statesData.find(s => code === s.state);
+
+    if (!state) {
+        return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
+    }
 
     if(!index){
         return res.status(400).json({message: 'State fun fact index value required'});
@@ -117,6 +121,8 @@ const updateFact = async (req, res) => {
     if(!fact || typeof fact !== 'string'){
         return res.status(400).json({message: 'State fun fact value required'});
     }
+
+    const statedb = await State.findOne({stateCode: code});
 
     if(!statedb || !statedb.funfacts?.length) {
         return res.status(404).json({message: `No Fun Facts found for ${s => code === s.code}`});
