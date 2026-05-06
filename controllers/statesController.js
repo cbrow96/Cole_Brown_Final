@@ -40,12 +40,13 @@ const getState = async (req, res) => {
 
 //get random fact on a given state
 const getRandomFact = async (req, res) => {
-    const state =  statesData.find(s => req.params.state.toUpperCase() === s.code);
+    const code = req.params.state.toUpperCase();
+    const state =  statesData.find(s => code === s.code);
     //error if state not found in 
     if (!state) return res.status(404).json({message: 'Invalid state abbreviation parameter'});
 
     //search mongo for state code
-    const statesdb = await State.findOne({stateCode: req.params.state.toUpperCase()});
+    const statesdb = await State.findOne({code});
     //check if funfacts exist
     if (!statesdb.funfacts?.length) {
     return res.status(404).json({ message: `No Fun Facts found for ${state.state}` });
