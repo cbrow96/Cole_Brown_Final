@@ -20,7 +20,7 @@ router.patch('/:state/funfact', verifyCode, statesController.updateFact);
 router.delete('/:state/funfact', verifyCode, statesController.deleteFact);
 
 // Serve index.html for root or /index.html
-router.get(/^\/$|\/index(\.html)?$/, (req, res) => {
+router.get(['/', '/index', '/index.html'], (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'index.html'));
 });
 
