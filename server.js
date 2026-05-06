@@ -25,7 +25,7 @@ app.use('/', express.static(path.join(__dirname, '/views')))
 app.use('/states', statesRouter);
 
 //404 catch-all
-app.all('*', (req, res) => {
+app.all('/*splat', (req, res) => {
   if (req.accepts('html')) {
     res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
   } else if (req.accepts('json')) {
