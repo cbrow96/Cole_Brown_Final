@@ -29,13 +29,14 @@ const getAllStates = async (req, res) => {
 const getState = async (req, res) => {
     //search json for statecode
     const state =  statesData.find(s => req.params.state.toUpperCase() === s.code);
+    console.log(`line 32. your state is: ${state}`);
     if (!state) return res.status(404).json({message: 'Invalid state abbreviation parameter'});
 
     //search mongo for state code
     const statesdb = await State.findOne({stateCode: req.params.state.toUpperCase()});
     //return combined data if exists in both mongo and json, else just return json data
     const statesRes = statesdb ? { ...state, funfacts: statesdb.funfacts } : state;
-    return res.json(statesRes);
+    res.json(statesRes);
 };
 
 //get random fact on a given state
@@ -49,11 +50,11 @@ const getRandomFact = async (req, res) => {
     //return combined data if exists in both mongo and json, else just return json data
     const statesRes = statesdb ? { ...state, funfacts: statesdb.funfacts } : state;
     //check if funfacts exist
-    if (!stateRes.funfacts?.length) {
-    return res.status(404).json({ message: `No Fun Facts found for ${stateRes.state}` });
+    if (!statesRes.funfacts?.length) {
+    return res.status(404).json({ message: `No Fun Facts found for ${statesRes.state}` });
     }
 
-    const fact = stateRes.funfacts[Math.floor(Math.random() * state.funfacts.length)];
+    const fact = statesRes.funfacts[Math.floor(Math.random() * state.funfacts.length)];
 
     res.json({funfact: fact});
 };
@@ -61,7 +62,7 @@ const getRandomFact = async (req, res) => {
 const getCapital = async (req, res) => {
     const state = statesData.find(s => req.params.state.toUpperCase() === s.code);
     if (!state) return res.status(404).json({message: 'Invalid state abbreviation parameter'});
-    res.json({state: state.state, capitol: state.capitol_city});
+    res.json({state: state.state, capital: state.capital_city});
 };
 
 const getNickName = async (req, res) => {
