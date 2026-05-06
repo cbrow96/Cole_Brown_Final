@@ -35,7 +35,7 @@ const getState = async (req, res) => {
     const statesdb = await State.findOne({stateCode: req.params.state.toUpperCase()});
     //return combined data if exists in both mongo and json, else just return json data
     const statesRes = statesdb ? { ...state, funfacts: statesdb.funfacts } : state;
-    res.json(statesRes);
+    return res.json(statesRes);
 };
 
 //get random fact on a given state
