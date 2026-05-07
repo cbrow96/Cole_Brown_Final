@@ -34,7 +34,7 @@ const getState = async (req, res) => {
     //search mongo for state code
     const statesdb = await State.findOne({stateCode: req.params.state.toUpperCase()});
     //return combined data if exists in both mongo and json, else just return json data
-    const statesRes = statesdb ? { ...state, funfacts: statesdb.funfacts } : state;
+    const statesRes = { ...state, funfacts: statesdb ? statesdb.funfacts : [] };
     res.json(statesRes);
 };
 
