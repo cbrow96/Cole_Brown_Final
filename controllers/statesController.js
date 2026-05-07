@@ -72,7 +72,7 @@ const getNickName = async (req, res) => {
 const getPopulation = async (req, res) => {
     const state = statesData.find(s => req.params.state.toUpperCase() === s.code);
     if (!state) return res.status(404).json({message: 'Invalid state abbreviation parameter'});
-    res.json({state: state.state, population: state.population});
+    res.json({state: state.state, population: state.population.toLocaleString()});
 };
 
 const getAdmission = async (req, res) => {
