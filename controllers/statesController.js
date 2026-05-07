@@ -37,7 +37,7 @@ const getState = async (req, res) => {
     const statesRes = { ...state, funfacts: statesdb ? statesdb.funfacts : [] };
     //take the state combined object with the funfacts property and filter out all null properties
     const filteredStates = Object.fromEntries(Object.entries(statesRes).filter(([_,  value]) => value !== null));
-    res.json(statesRes);
+    res.json(filteredStates);
 };
 
 //get random fact on a given state
