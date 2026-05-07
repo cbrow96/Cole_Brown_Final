@@ -35,6 +35,8 @@ const getState = async (req, res) => {
     const statesdb = await State.findOne({stateCode: req.params.state.toUpperCase()});
     //return combined data if exists in both mongo and json, else just return json data
     const statesRes = { ...state, funfacts: statesdb ? statesdb.funfacts : [] };
+    //take the state combined object with the funfacts property and filter out all null properties
+    const filteredStates = Object.fromEntries(Object.entries(statesRes).filter(([_,  value]) => value !== null));
     res.json(statesRes);
 };
 
