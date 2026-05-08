@@ -9,7 +9,7 @@ const getAllStates = async (req, res) => {
 
     //combine mongodb with any additional data from json
     let states = statesData.map(state =>{
-        const funfacts = statesMap.get(state.code);
+        let funfacts = statesMap.get(state.code);
         return funfacts ? {...state, funfacts} : {...state, funfacts: []};
     } 
     );
